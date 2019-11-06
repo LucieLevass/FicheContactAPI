@@ -20,22 +20,13 @@ class ContactController extends AbstractController
    */
   public function getDepartements(DepartementRepository $repo)
   {
-    $deps = $repo->findAll();
+    $deps = $repo->findDepartements();
 
     if (empty($deps)) {
       return new JsonResponse(['message' => 'Aucun département entreprise trouvé'], Response::HTTP_NOT_FOUND);
     }
-
-    $departements = [];
-    foreach ($deps as $dep) {
-          $departements[] = [
-             'id' => $dep->getId(),
-             'nom' => $dep->getNom(),
-             'mail' => $dep->getMail(),
-          ];
-      }
-
-      return new JsonResponse($departements);
+    
+      return new JsonResponse($deps);
   }
 
   /**
